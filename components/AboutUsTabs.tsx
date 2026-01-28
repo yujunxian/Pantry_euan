@@ -15,8 +15,8 @@ export default function AboutUsTabs({ active, onChange }: AboutUsTabsProps) {
         type="button"
         className={
           active === "about"
-            ? "cursor-pointer rounded-full bg-zinc-100 px-3 py-1 font-medium text-zinc-900"
-            : "cursor-pointer rounded-full px-3 py-1 text-zinc-700 hover:text-zinc-900"
+            ? "cursor-pointer rounded-full bg-emerald-50 px-3 py-1 font-medium text-neutral-900 transition-colors hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 focus-visible:ring-offset-2"
+            : "cursor-pointer rounded-full px-3 py-1 text-neutral-900 transition-colors hover:bg-emerald-50 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 focus-visible:ring-offset-2"
         }
         onClick={() => onChange("about")}
       >
@@ -26,8 +26,8 @@ export default function AboutUsTabs({ active, onChange }: AboutUsTabsProps) {
         type="button"
         className={
           active === "action"
-            ? "cursor-pointer rounded-full bg-zinc-100 px-3 py-1 font-medium text-zinc-900"
-            : "cursor-pointer rounded-full px-3 py-1 text-zinc-700 hover:text-zinc-900"
+            ? "cursor-pointer rounded-full bg-emerald-50 px-3 py-1 font-medium text-neutral-900 transition-colors hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 focus-visible:ring-offset-2"
+            : "cursor-pointer rounded-full px-3 py-1 text-neutral-900 transition-colors hover:bg-emerald-50 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 focus-visible:ring-offset-2"
         }
         onClick={() => onChange("action")}
       >
