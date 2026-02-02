@@ -24,3 +24,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+ol.list-decimal {
+  list-style-type: decimal !important;
+  list-style-position: outside;
+  padding-left: 1.5rem;
+}
+
+ol.list-decimal > li {
+  display: list-item !important;
+  list-style-type: decimal !important;
+}
+
+ol.list-decimal > li::marker {
+  color: #000;
+}

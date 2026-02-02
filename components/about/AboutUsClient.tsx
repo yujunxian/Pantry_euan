@@ -27,17 +27,17 @@ import PartnerLogos from "@/components/PartnerLogos";
 
 const featureCards = [
   {
-    title: "What this is",
+    title: "What This Is",
     body:
       "A community-facing home for neighborhood micro-pantries and the people who support them.",
   },
   {
-    title: "Why it matters",
+    title: "Why It Matters",
     body:
       "Local support helps reduce food waste and strengthen care between neighbors.",
   },
   {
-    title: "How it works",
+    title: "How It Works",
     body:
       "Clear information helps people find pantries, donate well, and stay connected.",
   },
@@ -111,7 +111,7 @@ const actions = [
     icon: Gift,
     title: "Donate",
     desc: "Check our donation guidelines and contribute to a local pantry.",
-    cta: "Donation Guide",
+    cta: "Pantry Donation Guide",
     href: "/food-donation-guide",
     comingSoon: false,
   },
@@ -142,12 +142,12 @@ const faqs = [
   {
     question: "What can I donate?",
     answer:
-      "Shelf-stable, unopened items are generally best (e.g., canned goods, pasta, rice, peanut butter). For items that require refrigeration, homemade food, or anything near expiration, please check the Food Donation Guide or confirm with the site.",
+      "Shelf-stable, unopened items are generally best (e.g., canned goods, pasta, rice, peanut butter). For items that require refrigeration, homemade food, or anything near expiration, please check the Pantry Donation Guide or confirm with the site.",
   },
   {
     question: "What should I avoid donating?",
     answer:
-      "Please avoid:\nOpened packages, homemade meals, or home-canned goods\nItems past the expiration date or with damaged packaging\nPerishable items unless the pantry clearly supports refrigeration\nWhen in doubt, use the Food Donation Guide or choose shelf-stable options.",
+      "Please avoid:\nOpened packages, homemade meals, or home-canned goods\nItems past the expiration date or with damaged packaging\nPerishable items unless the pantry clearly supports refrigeration\nWhen in doubt, use the Pantry Donation Guide or choose shelf-stable options.",
   },
   {
     question: "Can I take items if I didn’t donate?",
@@ -162,7 +162,7 @@ const faqs = [
   {
     question: "Is it okay to donate fresh produce or refrigerated items?",
     answer:
-      "Sometimes. Some sites can support produce or refrigerated items, but not all. Please check the Food Donation Guide and follow any posted pantry notes.",
+      "Sometimes. Some sites can support produce or refrigerated items, but not all. Please check the Pantry Donation Guide and follow any posted pantry notes.",
   },
   {
     question: "How do I know if a pantry is active or stocked?",
@@ -177,7 +177,7 @@ const faqs = [
   {
     question: "Will information change over time?",
     answer:
-      "Yes. Pantry availability and guidelines can change. We review updates regularly, and the Food Donation Guide may be refined based on partner feedback.",
+      "Yes. Pantry availability and guidelines can change. We review updates regularly, and the Pantry Donation Guide may be refined based on partner feedback.",
   },
   {
     question: "Is this tool the only source of guidance?",
@@ -198,6 +198,7 @@ export default function AboutUsClient({ initialTab }: AboutUsClientProps) {
   const [activeTab, setActiveTab] = useState<"about" | "action">(
     initialTab ?? urlTab
   );
+  const [showAllFaqs, setShowAllFaqs] = useState(false);
 
   const handleTabChange = (tab: "about" | "action") => {
     setActiveTab(tab);
@@ -239,7 +240,7 @@ export default function AboutUsClient({ initialTab }: AboutUsClientProps) {
                     className="rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-neutral-900 shadow-sm transition-colors hover:border-emerald-200 hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 focus-visible:ring-offset-2"
                     href="/food-donation-guide"
                   >
-                    Food Donation Guide
+                    Pantry Donation Guide
                   </Link>
                 </div>
               </>
@@ -296,7 +297,7 @@ export default function AboutUsClient({ initialTab }: AboutUsClientProps) {
 
           <section className="mt-10 max-w-3xl">
             <h2 className="text-xl font-semibold text-neutral-900">
-              What are neighborhood micro-pantries?
+              What Are Neighborhood Micro-Pantries?
             </h2>
             <p className="mt-3 text-base text-neutral-900">
               Neighborhood micro-pantries are small, community-supported spaces
@@ -308,7 +309,7 @@ export default function AboutUsClient({ initialTab }: AboutUsClientProps) {
 
           <section className="mt-8">
             <h2 className="text-xl font-semibold text-neutral-900">
-              What does this tool do?
+              What Does This Tool Do?
             </h2>
             <p className="mt-3 max-w-3xl text-base text-neutral-900">
               This tool helps neighbors support neighbors by making it easy to
@@ -332,7 +333,7 @@ export default function AboutUsClient({ initialTab }: AboutUsClientProps) {
           </section>
 
           <section className="mt-8 max-w-3xl">
-            <h2 className="text-xl font-semibold text-neutral-900">Who we are?</h2>
+            <h2 className="text-xl font-semibold text-neutral-900">Who We Are?</h2>
             <p className="mt-3 text-base text-neutral-900">
               We are a research team at the University of Washington collaborating
               with community partners to study how neighborhood micro-pantries
@@ -343,7 +344,7 @@ export default function AboutUsClient({ initialTab }: AboutUsClientProps) {
           </section>
 
           <section className="mt-10">
-            <h2 className="text-xl font-semibold text-neutral-900">Our values</h2>
+            <h2 className="text-xl font-semibold text-neutral-900">Our Values</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {values.map((value) => (
                 <div
@@ -359,11 +360,8 @@ export default function AboutUsClient({ initialTab }: AboutUsClientProps) {
 
           <section className="mt-10">
             <h2 className="text-xl font-semibold text-neutral-900">
-              Logos / Partners
+              Partners
             </h2>
-            <p className="mt-2 text-sm text-neutral-700">
-              Partner placeholders shown while logos are gathered.
-            </p>
             <div className="mt-4">
               <PartnerLogos />
             </div>
@@ -372,7 +370,7 @@ export default function AboutUsClient({ initialTab }: AboutUsClientProps) {
           <section className="mt-10 max-w-3xl">
             <h2 className="text-xl font-semibold text-neutral-900">FAQ</h2>
             <div className="mt-4 space-y-3">
-              {faqs.map((faq) => (
+              {(showAllFaqs ? faqs : faqs.slice(0, 3)).map((faq) => (
                 <details
                   key={faq.question}
                   className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm"
@@ -384,13 +382,24 @@ export default function AboutUsClient({ initialTab }: AboutUsClientProps) {
                 </details>
               ))}
             </div>
+            {faqs.length > 3 && (
+              <button
+                type="button"
+                onClick={() => setShowAllFaqs((prev) => !prev)}
+                className="mt-4 flex w-full items-center justify-center gap-2 text-sm font-medium text-neutral-900 hover:underline underline-offset-2"
+                aria-expanded={showAllFaqs}
+              >
+                {showAllFaqs ? "Show fewer FAQs" : "Show all FAQs"}
+                <span aria-hidden="true">{showAllFaqs ? "▲" : "▼"}</span>
+              </button>
+            )}
           </section>
         </>
       ) : (
         <>
           <section className="mt-8">
             <h2 className="text-xl font-semibold text-neutral-900">
-              How can you help?
+              How Can You Help?
             </h2>
             <div className="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               {actions.map((action) => (
@@ -410,8 +419,8 @@ export default function AboutUsClient({ initialTab }: AboutUsClientProps) {
                   {action.comingSoon ? (
                     <button
                       type="button"
-                      disabled
-                      className="mt-4 w-full cursor-not-allowed rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 opacity-70"
+                      aria-disabled="true"
+                      className="mt-4 w-full rounded-full border border-emerald-500 bg-white px-4 py-2 text-sm font-medium text-emerald-700 transition-colors hover:border-emerald-600 hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 focus-visible:ring-offset-2"
                     >
                       {action.cta}
                     </button>
@@ -438,7 +447,7 @@ export default function AboutUsClient({ initialTab }: AboutUsClientProps) {
           </section>
           <section className="mt-10 rounded-2xl border border-emerald-100 bg-emerald-50 p-8 text-center">
             <h3 className="text-xl font-semibold text-neutral-900">
-              Ready to make a difference?
+              Ready to Make a Difference?
             </h3>
             <p className="mt-2 text-neutral-700">
               Start by exploring pantries in your neighborhood

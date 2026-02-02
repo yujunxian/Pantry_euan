@@ -73,7 +73,7 @@ export default function UpdatePage() {
 
     try {
       const payload = {
-        type: "Update",
+        type: formState.type,
         pantry_name: formState.pantry_name,
         pantry_address: formState.pantry_address,
         issue_detail: formState.issue_detail,

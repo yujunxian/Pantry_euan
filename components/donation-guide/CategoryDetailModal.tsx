@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
 import { SubCategory } from "@/components/donation-guide/types/foods";
 import { X } from "lucide-react";
 import { DonationIcon } from "@/components/donation-guide/icons";
+import Modal from "./Modal";
 
 interface CategoryDetailModalProps {
   subcategory: SubCategory | null;
@@ -16,24 +16,6 @@ export default function CategoryDetailModal({
   categoryColor,
   onClose,
 }: CategoryDetailModalProps) {
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    };
-
-    if (subcategory) {
-      document.addEventListener("keydown", handleEscape);
-      document.body.style.overflow = "hidden";
-    }
-
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "unset";
-    };
-  }, [subcategory, onClose]);
-
   if (!subcategory) return null;
 
   const colorClasses = {
@@ -53,77 +35,75 @@ export default function CategoryDetailModal({
   const storageLabel = storageLabels[subcategory.storage] || storageLabels.none;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/70"
-      onClick={onClose}
+    <Modal
+      isOpen={Boolean(subcategory)}
+      onClose={onClose}
+      contentClassName={`border-2 ${colorClasses[categoryColor]}`}
     >
-      <div
-        className={`bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto border-2 ${colorClasses[categoryColor]}`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div>
-              <DonationIcon iconKey={subcategory.icon} className="w-8 h-8" />
-            </div>
-            <h2 className="text-2xl font-bold">{subcategory.title}</h2>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400"
-            aria-label="Close"
-          >
-            <X className="w-6 h-6" />
-          </button>
-        </div>
-
-        {/* Content */}
-        <div className="p-6 space-y-6">
-          {/* Examples */}
-          {subcategory.examples.length > 0 && (
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-2">Examples:</h3>
-              <ul className="list-disc list-inside space-y-1 text-gray-700">
-                {subcategory.examples.map((example, index) => (
-                  <li key={index}>{example}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Considerations */}
-          {subcategory.considerations && (
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-2">Considerations:</h3>
-              {(() => {
-                const text = subcategory.considerations;
-                const noteIndex = text.indexOf("Note:");
-                if (noteIndex === -1) {
-                  const single = text.trim();
-                  return <p className="text-gray-700">{single}</p>;
-                }
-                const main = text.slice(0, noteIndex).trim().replace(/\.$/, "");
-                const note = text.slice(noteIndex).trim();
-                const lines = [main, note].filter(Boolean);
-                return (
-                  <ul className="list-disc list-inside space-y-1 text-gray-700">
-                    {lines.map((line, index) => (
-                      <li key={index}>{line}</li>
-                    ))}
-                  </ul>
-                );
-              })()}
-            </div>
-          )}
-
-          {/* Storage */}
+      {/* Header */}
+      <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
           <div>
-            <h3 className="font-semibold text-gray-900 mb-2">Storage Requirement:</h3>
-            <p className="text-gray-700">{storageLabel}</p>
+            <DonationIcon iconKey={subcategory.icon} className="w-8 h-8" />
           </div>
+          <h2 className="text-2xl font-bold">{subcategory.title}</h2>
+        </div>
+        <button
+          onClick={onClose}
+          className="p-2 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400"
+          aria-label="Close"
+        >
+          <X className="w-6 h-6" />
+        </button>
+      </div>
+
+      {/* Content */}
+      <div className="p-6 space-y-6">
+        {/* Examples */}
+        {subcategory.examples.length > 0 && (
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-2">Examples:</h3>
+            <ul className="list-disc list-inside space-y-1 text-gray-700">
+              {subcategory.examples.map((example, index) => (
+                <li key={index}>{example}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Considerations */}
+        {subcategory.considerations && (
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-2">Considerations:</h3>
+            {(() => {
+              const text = subcategory.considerations;
+              const noteIndex = text.indexOf("Note:");
+              if (noteIndex === -1) {
+                const single = text.trim();
+                return <p className="text-gray-700">{single}</p>;
+              }
+              const main = text.slice(0, noteIndex).trim().replace(/\.$/, "");
+              const note = text.slice(noteIndex).trim();
+              const lines = [main, note].filter(Boolean);
+              return (
+                <ul className="list-disc list-inside space-y-1 text-gray-700">
+                  {lines.map((line, index) => (
+                    <li key={index}>{line}</li>
+                  ))}
+                </ul>
+              );
+            })()}
+          </div>
+        )}
+
+        {/* Storage */}
+        <div>
+          <h3 className="font-semibold text-gray-900 mb-2">
+            Storage Requirement:
+          </h3>
+          <p className="text-gray-700">{storageLabel}</p>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 }

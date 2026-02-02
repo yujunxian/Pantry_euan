@@ -7,7 +7,7 @@ export default function Header() {
         <div className="text-lg font-semibold">Pantry Map</div>
         <nav className="flex items-center gap-6 text-sm font-medium">
           <span>My Pantry</span>
-          <Link href="/food-donation-guide">Food Donation Guide</Link>
+          <Link href="/food-donation-guide">Pantry Donation Guide</Link>
           <Link href="/about-us">About Us</Link>
           <span>Join Us</span>
         </nav>
